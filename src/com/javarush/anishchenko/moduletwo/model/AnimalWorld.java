@@ -4,13 +4,26 @@ import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class AnimalWorld {
 
-    private Set<AnimalPopulation> animals = new HashSet<>();
+    private Set<AnimalPopulation> animalPopulations = new HashSet<>();
+
+    public AnimalWorld() {
+    }
+
+    public AnimalWorld(AnimalWorld animalWorld) {
+        Set<AnimalPopulation> animalPopulationsCopy = new HashSet<>();
+        for (AnimalPopulation animalPopulation : animalWorld.getAnimalPopulations()) {
+            AnimalPopulation animalOperationCopy = new AnimalPopulation(animalPopulation.getAnimalType(), animalPopulation.getAnimals());
+            animalPopulationsCopy.add(animalOperationCopy);
+        }
+        this.animalPopulations = new HashSet<>(animalPopulationsCopy);
+    }
 
     public boolean addAnimal(AnimalType animalType, Animal animal) {
         AnimalPopulation animalPopulation = findGroupOfAnimals(animalType);
@@ -18,7 +31,7 @@ public class AnimalWorld {
             animalPopulation.addAnimal(animal);
             return true;
         }
-        return animals.add(new AnimalPopulation(animalType, animal));
+        return animalPopulations.add(new AnimalPopulation(animalType, animal));
     }
 
     public boolean addAnimals(AnimalType animalType, List<Animal> animalsList) {
@@ -28,23 +41,34 @@ public class AnimalWorld {
             return true;
         }
 
-        return animals.add(new AnimalPopulation(animalType, animalsList));
+        return animalPopulations.add(new AnimalPopulation(animalType, animalsList));
     }
 
-    public Set<AnimalPopulation> getAnimals() {
-        return animals;
+    public Set<AnimalPopulation> getAnimalPopulations() {
+        return animalPopulations;
     }
 
-    public AnimalType getFirstPopulation() {
-        if (animals.size() == 0) {
+    public AnimalPopulation getAnimalPopulation(AnimalType animalType) {
+        return findGroupOfAnimals(animalType);
+    }
+
+    public AnimalPopulation getFirstPopulation() {
+        if (animalPopulations.size() == 0) {
             return null;
         }
+        return animalPopulations.iterator().next();
+    }
 
-        return animals.iterator().next().getAnimalType();
+    public int getTotal() {
+        int total = 0;
+        for (AnimalPopulation animalPopulation : animalPopulations) {
+            total += animalPopulation.getAnimals().size();
+        }
+        return total;
     }
 
     private AnimalPopulation findGroupOfAnimals(AnimalType animalType) {
-        for (AnimalPopulation animalPopulation : animals) {
+        for (AnimalPopulation animalPopulation : animalPopulations) {
             if (animalType.equals(animalPopulation.getAnimalType())) {
                 return animalPopulation;
             }

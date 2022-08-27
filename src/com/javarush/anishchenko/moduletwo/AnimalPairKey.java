@@ -2,22 +2,37 @@ package com.javarush.anishchenko.moduletwo;
 
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 
+import java.util.Objects;
+
 public class AnimalPairKey {
 
-   AnimalType herbiovore;
+   private final AnimalType herbivore;
 
-   AnimalType carnivire;
+   private final AnimalType carnivore;
 
-    public AnimalPairKey(AnimalType herbiovore, AnimalType carnivire) {
-        this.herbiovore = herbiovore;
-        this.carnivire = carnivire;
+    public AnimalPairKey(AnimalType carnivore, AnimalType herbivore) {
+        this.herbivore = herbivore;
+        this.carnivore = carnivore;
     }
 
-    public AnimalType getCarnivire() {
-        return carnivire;
+    public AnimalType getCarnivore() {
+        return carnivore;
     }
 
-    public AnimalType getHerbiovore() {
-        return herbiovore;
+    public AnimalType getHerbivore() {
+        return herbivore;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimalPairKey that = (AnimalPairKey) o;
+        return herbivore == that.herbivore && carnivore == that.carnivore;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(herbivore, carnivore);
     }
 }

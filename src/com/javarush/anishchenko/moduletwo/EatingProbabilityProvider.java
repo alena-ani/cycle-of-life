@@ -10,11 +10,11 @@ import java.util.Map;
 
 import java.util.Scanner;
 
-public class EatingAnimals {
+public class EatingProbabilityProvider {
 
     private final Map<AnimalPairKey, Integer> animalEatingProbabilities = new HashMap<>();
 
-    public EatingAnimals() {
+    public EatingProbabilityProvider() {
       loadAnimalEatingProbabilities();
     }
 
@@ -28,9 +28,9 @@ public class EatingAnimals {
                     for (int j = 0; j < size; j++) {
                         int probabilityValue = Integer.parseInt(line[j]);
                         if (probabilityValue > 0) {
-                            AnimalType herbiovore = AnimalType.ANIMALS[i];
-                            AnimalType carnivire = AnimalType.ANIMALS[j];
-                            AnimalPairKey animalPairKey = new AnimalPairKey(herbiovore, carnivire);
+                            AnimalType carnivore = AnimalType.ANIMALS[i];
+                            AnimalType herbivore = AnimalType.ANIMALS[j];
+                            AnimalPairKey animalPairKey = new AnimalPairKey(carnivore, herbivore);
                             animalEatingProbabilities.put(animalPairKey, probabilityValue);
                         }
                     }
@@ -41,14 +41,18 @@ public class EatingAnimals {
         }
     }
 
+    public Integer getProbability(AnimalPairKey animalPairKey) {
+        return animalEatingProbabilities.get(animalPairKey);
+    }
+
     public Integer getProbability(AnimalType firstAnimal, AnimalType secondAnimal) {
         AnimalPairKey animalPairKey = new AnimalPairKey(firstAnimal, secondAnimal);
-        Integer probablityValue = animalEatingProbabilities.get(animalPairKey);
-        if (probablityValue == null) {
+        Integer probabilityValue = animalEatingProbabilities.get(animalPairKey);
+        if (probabilityValue == null) {
             animalPairKey = new AnimalPairKey(secondAnimal, firstAnimal);
-            probablityValue = animalEatingProbabilities.get(animalPairKey);
+            probabilityValue = animalEatingProbabilities.get(animalPairKey);
         }
-        return probablityValue;
+        return probabilityValue;
     }
 
 }

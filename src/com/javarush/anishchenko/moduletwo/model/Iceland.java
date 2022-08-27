@@ -27,6 +27,22 @@ public class Iceland {
         return locations[row][column];
     }
 
+    public Location[][] getLocations() {
+        return locations;
+    }
+
+    // TODO move to class with statistics
+    public int getTotalAnimals() {
+        int total = 0;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
+                Location location = getLocation(i, j);
+                total += location.getAnimalWorld().getTotal();
+            }
+        }
+        return total;
+    }
+
     private void initializeLocations() {
         for (int i = 0; i < this.length; i++) {
             for (int j = 0; j < this.width; j++) {

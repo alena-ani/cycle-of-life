@@ -33,4 +33,8 @@ public class AnimalPopulation {
     public void addAnimals(List<Animal> animalsList) {
         animals.addAll(animalsList);
     }
+
+    public void remove(Animal animal) {
+        animals.remove(animal);
+    };
 }

@@ -1,14 +1,29 @@
 package com.javarush.anishchenko.moduletwo.model.animal;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributeProvider;
-
 public abstract class Animal implements AnimalAction{
 
-    private AnimalAttributeProvider animalAttributeManager;
+    protected boolean bitten = false;
+
+    protected double saturation = 0.0d;
+
+    protected double maxSaturation = 0.0d;
+
+    protected double weight = 0.0d;
+
+    protected int speed = 0;
+
+    public boolean wantEat() {
+        return saturation < maxSaturation;
+    }
 
     @Override
-    public void eat() {
-        System.out.println("Eating...");
+    public void eat(Animal animalToEat) {
+        System.out.println(this.getClass().getSimpleName() +  " eating " + animalToEat.getWeight() + " of " + animalToEat.getClass().getSimpleName());
+        saturation += animalToEat.getWeight();
+        if (saturation > maxSaturation) {
+            saturation = maxSaturation;
+        }
+        animalToEat.setBitten(true);
     }
 
     @Override
@@ -19,7 +34,6 @@ public abstract class Animal implements AnimalAction{
     @Override
     public void breeds() {
         System.out.println("Breeds...");
-
     }
 
     @Override
@@ -27,7 +41,43 @@ public abstract class Animal implements AnimalAction{
         System.out.println("Dies...");
     }
 
-    public void setAnimalAttributes(AnimalAttributeProvider animalAttributeProvider) {
-        this.animalAttributeManager = animalAttributeProvider;
+    public boolean isBitten() {
+        return bitten;
+    }
+
+    public void setBitten(boolean bitten) {
+        this.bitten = bitten;
+    }
+
+    public double getSaturation() {
+        return saturation;
+    }
+
+    public void setSaturation(double saturation) {
+        this.saturation = saturation;
+    }
+
+    public double getMaxSaturation() {
+        return maxSaturation;
+    }
+
+    public void setMaxSaturation(double maxSaturation) {
+        this.maxSaturation = maxSaturation;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 }

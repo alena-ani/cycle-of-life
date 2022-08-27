@@ -1,6 +1,5 @@
 package com.javarush.anishchenko.moduletwo;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributeProvider;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 
 public class Main {
@@ -10,13 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
         AnimalAttributeProvider animalAttributeProvider = new AnimalAttributeProvider();
+        EatingProbabilityProvider eatingProbabilityProvider = new EatingProbabilityProvider();
         Iceland iceland = new Iceland(length, width);
-        IcelandManager icelandManager = new IcelandManager(animalAttributeProvider, iceland);
+        IcelandManager icelandManager = new IcelandManager(animalAttributeProvider, eatingProbabilityProvider, iceland);
         System.out.println("Filling iceland...");
         icelandManager.fillIceland();
         icelandManager.showIceland();
+        icelandManager.startLife(2);
+        icelandManager.showIceland();
     }
-
-
-
 }

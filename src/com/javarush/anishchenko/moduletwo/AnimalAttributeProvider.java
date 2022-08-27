@@ -1,5 +1,6 @@
-package com.javarush.anishchenko.moduletwo.model;
+package com.javarush.anishchenko.moduletwo;
 
+import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 
 import java.io.FileInputStream;
@@ -37,12 +38,44 @@ public class AnimalAttributeProvider {
         return emoji != null ? emoji : "";
     }
 
+    public int getSpeed (AnimalType animalType) {
+        AnimalAttributes animalAttributes = animalAttributeMap.get(animalType);
+        if (animalAttributes == null) {
+            return 0;
+        }
+        return animalAttributes.getSpeed();
+    }
+
+    public int getMaxAmountOfAnimals(AnimalType animalType) {
+        AnimalAttributes animalAttributes = animalAttributeMap.get(animalType);
+        if (animalAttributes == null) {
+            return Integer.MAX_VALUE;
+        }
+        return animalAttributes.getMaxAmount();
+    }
+
+    public double getMaxSaturation(AnimalType animalType) {
+        AnimalAttributes animalAttributes = animalAttributeMap.get(animalType);
+        if (animalAttributes == null) {
+            return 0;
+        }
+        return animalAttributes.getMaxSaturation();
+    }
+
+    public double getWeight(AnimalType animalType) {
+        AnimalAttributes animalAttributes = animalAttributeMap.get(animalType);
+        if (animalAttributes == null) {
+            return 0;
+        }
+        return animalAttributes.getWeight();
+    }
+
     private void loadAnimalAttributes() {
         try (FileInputStream fis = new FileInputStream(ATTRIBUTES_CONFIG)) {
             Properties properties = new Properties();
             properties.load(fis);
             for (AnimalType animalType : AnimalType.values()) {
-                System.out.println("Loading attributes for " + animalType);
+                // System.out.println("Loading attributes for " + animalType);
                 AnimalAttributes animalAttributes = new AnimalAttributes();
 
                 String animalKey = animalType.toString().toLowerCase();
