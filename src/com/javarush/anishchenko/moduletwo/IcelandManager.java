@@ -74,7 +74,8 @@ public class IcelandManager {
         // TODO grow plant
         walkManager.move();
         foodManager.haveDinner();
-        // TODO die
+        cleanManager.clean();
+
         // TODO born
         showIceland();
     }
