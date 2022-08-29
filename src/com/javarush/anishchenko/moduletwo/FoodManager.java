@@ -1,6 +1,7 @@
 package com.javarush.anishchenko.moduletwo;
 
 import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.model.Coordinate;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
@@ -17,16 +18,12 @@ public class FoodManager {
 
     private final EatingProbabilityProvider eatingProbabilityProvider;
 
-    private final AnimalAttributeProvider animalAttributeProvider;
-
     private final Iceland iceland;
 
     public FoodManager(EatingProbabilityProvider eatingProbabilityProvider,
-                       AnimalAttributeProvider animalAttributeProvider,
                        Iceland iceland) {
 
         this.eatingProbabilityProvider = eatingProbabilityProvider;
-        this.animalAttributeProvider = animalAttributeProvider;
         this.iceland = iceland;
     }
 
@@ -34,7 +31,8 @@ public class FoodManager {
         System.out.println("Hunt is started...");
         for (int i = 0; i < iceland.getLength(); i++) {
             for (int j = 0; j < iceland.getWidth(); j++) {
-                Location location = iceland.getLocation(i, j);
+                Coordinate locationCoordinate = new Coordinate(i, j);
+                Location location = iceland.getLocation(locationCoordinate);
                 AnimalWorld huntedAnimalWorld = new AnimalWorld(location.getAnimalWorld());
                 int animalsTotal = huntedAnimalWorld.getTotal();
                 while (animalsTotal > 0) {
@@ -46,7 +44,7 @@ public class FoodManager {
                     if (animalPopulationsCount == 0) {
                         continue;
                     } else if (animalPopulationsCount > 1) {
-                        index = RandomUtil.getRandomNumber(0, animalPopulationsCount);
+                        index = RandomUtil.getNumber(0, animalPopulationsCount);
                     } else {
                         index = 0;
                     }
@@ -59,14 +57,14 @@ public class FoodManager {
                     } else if (animalsCount == 1) {
                         index = 0;
                     } else {
-                        index = RandomUtil.getRandomNumber(0, animalsCount);
+                        index = RandomUtil.getNumber(0, animalsCount);
                     }
 
                     AnimalType animalType = population.getAnimalType();
                     Animal animal = animals.get(index);
                     AnimalPopulation huntedAnimalPopulation = huntedAnimalWorld.getAnimalPopulation(animalType);
                     if (animal.isBitten() || !animal.wantEat()) {
-                        System.out.println("Animal " + animalType + ": " + animal + " won't hunt");
+                        // System.out.println("Animal " + animalType + ": " + animal + " won't hunt");
                         huntedAnimalPopulation.remove(animal);
                         animalsTotal--;
                         if (huntedAnimalPopulation.getAnimals().isEmpty()) {
@@ -77,7 +75,7 @@ public class FoodManager {
 
                     AnimalPopulation animalPopulationToEat = findAnimalPopulationToEat(animalType, animalPopulations);
                     if (animalPopulationToEat == null) {
-                        System.out.println("Animal " + animalType + ": " + animal + " won't hunt. No food found");
+                        // System.out.println("Animal " + animalType + ": " + animal + " won't hunt. No food found");
                         huntedAnimalPopulation.remove(animal);
                         animalsTotal--;
                         if (huntedAnimalPopulation.getAnimals().isEmpty()) {
@@ -86,7 +84,7 @@ public class FoodManager {
                         continue;
                     }
 
-                    index = RandomUtil.getRandomNumber(0, animalPopulationToEat.getAnimals().size());
+                    index = RandomUtil.getNumber(0, animalPopulationToEat.getAnimals().size());
                     Animal animalToEat = animalPopulationToEat.getAnimals().get(index);
                     animal.eat(animalToEat);
                     huntedAnimalPopulation.remove(animal);
@@ -104,14 +102,14 @@ public class FoodManager {
         for (AnimalPopulation animalPopulationToEat : animalPopulations) {
             AnimalType animalTypeToEat = animalPopulationToEat.getAnimalType();
             AnimalPairKey animalPairKey = new AnimalPairKey(animalType, animalTypeToEat);
-            Integer eatingProbability = eatingProbabilityProvider.getProbability(animalPairKey);
+            Integer eatingProbability = eatingProbabilityProvider.getAnimalEatProbability(animalPairKey);
             if (eatingProbability == null) {
                 continue;
             }
-            int probabilityRandomValue = RandomUtil.getRandomNumber(PROBABILITY_MIN_PERCENT_VALUE, PROBABILITY_MAX_PERCENT_VALUE);
-            System.out.println("Animal " + animalType + " want to eat "
-                    + animalPopulationToEat + " with probability: "
-                    + probabilityRandomValue + ", eatingProbability=" + eatingProbability);
+            int probabilityRandomValue = RandomUtil.getNumber(PROBABILITY_MIN_PERCENT_VALUE, PROBABILITY_MAX_PERCENT_VALUE);
+            // System.out.println("Animal " + animalType + " want to eat "
+            //        + animalPopulationToEat + " with probability: "
+            //        + probabilityRandomValue + ", eatingProbability=" + eatingProbability);
 
             if (probabilityRandomValue > eatingProbability) {
                 break;

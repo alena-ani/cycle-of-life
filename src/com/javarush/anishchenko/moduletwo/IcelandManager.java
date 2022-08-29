@@ -1,18 +1,21 @@
 package com.javarush.anishchenko.moduletwo;
 
-import com.javarush.anishchenko.moduletwo.model.*;
+import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
+import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.model.Coordinate;
+import com.javarush.anishchenko.moduletwo.model.Iceland;
+import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.model.plant.Plant;
+import com.javarush.anishchenko.moduletwo.model.plant.PlantType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IcelandManager {
 
-    private static final int ANIMALS_AMOUNT = 50;
-
-    private final AnimalAttributeProvider animalAttributeProvider;
+    private final AttributeProvider attributeProvider;
 
     private final EatingProbabilityProvider eatingProbabilityProvider;
 
@@ -28,45 +31,36 @@ public class IcelandManager {
 
     private final ObserverManager observerManager;
 
-    public IcelandManager(AnimalAttributeProvider animalAttributeProvider,
+    public IcelandManager(AttributeProvider attributeProvider,
                           EatingProbabilityProvider eatingProbabilityProvider,
                           Iceland iceland) {
 
-        this.animalAttributeProvider = animalAttributeProvider;
+        this.attributeProvider = attributeProvider;
         this.eatingProbabilityProvider = eatingProbabilityProvider;
         this.iceland = iceland;
-        this.walkManager = new WalkManager(animalAttributeProvider, iceland);
-        this.foodManager = new FoodManager(eatingProbabilityProvider, animalAttributeProvider, iceland);
-        this.birthManager = new BirthManager(animalAttributeProvider, iceland);
-        this.cleanManager = new CleanManager(animalAttributeProvider, iceland);
-        this.observerManager = new ObserverManager(animalAttributeProvider, iceland);
+        this.walkManager = new WalkManager(attributeProvider, iceland);
+        this.foodManager = new FoodManager(eatingProbabilityProvider, iceland);
+        this.birthManager = new BirthManager(attributeProvider, iceland);
+        this.cleanManager = new CleanManager(iceland);
+        this.observerManager = new ObserverManager(attributeProvider, iceland);
     }
 
     public void fillIceland() {
-        // System.out.println("Start filling iceland with animals...");
-        for (AnimalType animalType : AnimalType.values()) {
-            AnimalAttributes attributes = animalAttributeProvider.getAttributes(animalType);
-            int amount = ANIMALS_AMOUNT;
-            while (amount > 0) {
-                int animalsAmount = RandomUtil.getRandomNumber(1, amount);
-                int row = RandomUtil.getRandomNumber(0, iceland.getLength());
-                int column = RandomUtil.getRandomNumber(0, iceland.getWidth());
-                if (attributes.getMaxAmount() >= animalsAmount) {
-                    List<Animal> animals = createAnimals(animalType, animalsAmount);
-                    // System.out.println("Set " + animalsAmount + " " + animalType + " on [" + row + "," +column + "]");
-                    Location location = iceland.getLocation(row, column);
-                    location.addAnimals(animalType, animals);
-                    amount = amount - animalsAmount;
-                }
-            }
-        }
+        System.out.println("Start filling iceland with animals and plants ...");
+        fillAnimals();
+        fillPlants();
         System.out.println("Iceland successfully filled with animals");
     }
 
     public void startLife(int days) {
+        fillIceland();
+        showIceland();
         int day = 0;
         while (day++ < days) {
+            System.out.println("=======================  DAY " + day + " =========================");
+            System.out.println();
             liveOneDay();
+            showIceland();
         }
     }
 
@@ -75,20 +69,18 @@ public class IcelandManager {
         walkManager.move();
         foodManager.haveDinner();
         cleanManager.clean();
-
-        // TODO born
-        showIceland();
+        birthManager.birth();
     }
 
     public void showIceland() {
         System.out.println("Total number of animals: " + iceland.getTotalAnimals());
         for (int i = 0; i < iceland.getLength(); i++) {
             for (int j = 0; j < iceland.getWidth(); j++) {
-                Location location = iceland.getLocation(i, j);
+                Location location = iceland.getLocation(new Coordinate(i, j));
                 AnimalWorld animalWorld = location.getAnimalWorld();
                 AnimalPopulation animalPopulation = animalWorld.getFirstPopulation();
                 if (animalPopulation != null) {
-                    String emoji = animalAttributeProvider.getEmoji(animalPopulation.getAnimalType());
+                    String emoji = attributeProvider.getEmoji(animalPopulation.getAnimalType());
                     System.out.printf("%12s (%d/%d)",
                             animalPopulation.getAnimalType(),
                             animalPopulation.getAnimals().size(),
@@ -103,17 +95,33 @@ public class IcelandManager {
         System.out.println();
     }
 
-    private List<Animal> createAnimals(AnimalType animalType, int animalsCount) {
-        AnimalAttributes animalAttributes = animalAttributeProvider.getAttributes(animalType);
-        List<Animal> animals = new ArrayList<>();
-        for (int i = 0; i < animalsCount; i++) {
-            Animal animal = AnimalFactory.createAnimal(animalType);
-            animal.setMaxSaturation(animalAttributes.getMaxSaturation());
-            animal.setSpeed(animalAttributes.getSpeed());
-            animal.setWeight(animalAttributes.getWeight());
-            animals.add(animal);
+    private void fillPlants() {
+        for (int i = 0; i < iceland.getLength(); i++) {
+            for (int j = 0; j < iceland.getWidth(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                Location location = iceland.getLocation(coordinate);
+                int plantsAmount = RandomUtil.getNumber(0, AttributeProvider.MAX_PLANTS_AMOUNT_PER_CELL);
+                List<Plant> plants = PlantFactory.createPlants(PlantType.HERB, plantsAmount);
+                location.getPlantWorld().addPlants(PlantType.HERB, plants);
+            }
         }
-        return animals;
     }
 
+    private void fillAnimals() {
+        for (int i = 0; i < iceland.getLength(); i++) {
+            for (int j = 0; j < iceland.getWidth(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                Location location = iceland.getLocation(coordinate);
+                for (AnimalType animalType : AnimalType.values()) {
+                    AnimalAttributes animalAttributes = attributeProvider.getAnimalAttributes(animalType);
+                    int animalsCountOnLocation = RandomUtil.getNumber(0, animalAttributes.getMaxAmount());
+                    if (animalsCountOnLocation == 0) {
+                        continue;
+                    }
+                    List<Animal> animals = AnimalFactory.createAnimals(animalType, animalsCountOnLocation, animalAttributes);
+                    location.addAnimals(animalType, animals);
+                }
+            }
+        }
+    }
 }

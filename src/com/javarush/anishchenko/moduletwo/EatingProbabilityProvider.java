@@ -14,6 +14,21 @@ public class EatingProbabilityProvider {
 
     private final Map<AnimalPairKey, Integer> animalEatingProbabilities = new HashMap<>();
 
+    private static final Map<AnimalType, Integer> PLANTS_EATING_PROBABILITY = new HashMap<>();
+
+    static {
+        PLANTS_EATING_PROBABILITY.put(AnimalType.HORSE, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.DEER, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.RABBIT, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.MOUSE, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.GOAT, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.SHEEP, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.BOAR, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.BUFFALO, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.DUCK, 100);
+        PLANTS_EATING_PROBABILITY.put(AnimalType.CATERPILLAR, 100);
+    }
+
     public EatingProbabilityProvider() {
       loadAnimalEatingProbabilities();
     }
@@ -41,11 +56,19 @@ public class EatingProbabilityProvider {
         }
     }
 
-    public Integer getProbability(AnimalPairKey animalPairKey) {
+    public Integer getAnimalEatProbability(AnimalPairKey animalPairKey) {
         return animalEatingProbabilities.get(animalPairKey);
     }
 
-    public Integer getProbability(AnimalType firstAnimal, AnimalType secondAnimal) {
+    public Integer getPlantEatProbability(AnimalType animalType) {
+        Integer plantEatingProbability = PLANTS_EATING_PROBABILITY.get(animalType);
+        if (plantEatingProbability == null) {
+            return 0;
+        }
+        return plantEatingProbability;
+    }
+
+    public Integer getAnimalEatProbability(AnimalType firstAnimal, AnimalType secondAnimal) {
         AnimalPairKey animalPairKey = new AnimalPairKey(firstAnimal, secondAnimal);
         Integer probabilityValue = animalEatingProbabilities.get(animalPairKey);
         if (probabilityValue == null) {
@@ -56,4 +79,3 @@ public class EatingProbabilityProvider {
     }
 
 }
-

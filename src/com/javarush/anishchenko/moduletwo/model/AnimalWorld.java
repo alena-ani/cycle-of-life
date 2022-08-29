@@ -67,6 +67,14 @@ public class AnimalWorld {
         return total;
     }
 
+    public List<Animal> getAllAnimals() {
+        List<Animal> animals = new ArrayList<>();
+        for (AnimalPopulation animalPopulation : animalPopulations) {
+            animals.addAll(animalPopulation.getAnimals());
+        }
+        return animals;
+    }
+
     private AnimalPopulation findGroupOfAnimals(AnimalType animalType) {
         for (AnimalPopulation animalPopulation : animalPopulations) {
             if (animalType.equals(animalPopulation.getAnimalType())) {

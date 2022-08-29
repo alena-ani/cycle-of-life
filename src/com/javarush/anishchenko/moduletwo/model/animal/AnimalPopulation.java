@@ -26,6 +26,21 @@ public class AnimalPopulation {
         return animals;
     }
 
+    public int getAnimalCount() {
+        return animals.size();
+    }
+
+    public int getLiveAnimalsCount() {
+        int count = 0;
+        for (Animal animal : animals) {
+            if (animal.isBitten() || animal.hasNoStrength()) {
+                continue;
+            }
+            count++;
+        }
+        return count;
+    }
+
     public void addAnimal(Animal animal) {
         animals.add(animal);
     }

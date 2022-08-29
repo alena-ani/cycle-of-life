@@ -10,24 +10,18 @@ import java.util.List;
 
 public class Location {
 
-    private final int row;
-    private final int column;
+    private final Coordinate coordinate;
     private final AnimalWorld animalWorld;
     private final PlantWorld plantWorld;
 
     public Location(int row, int column) {
-        this.row = row;
-        this.column = column;
+        this.coordinate = new Coordinate(row, column);
         this.animalWorld = new AnimalWorld();
         this.plantWorld = new PlantWorld();
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
 
     public void addAnimal(AnimalType animalType, Animal animal) {
@@ -38,8 +32,12 @@ public class Location {
         animalWorld.addAnimals(animalType, animals);
     }
 
-    public void addPlant(PlantType plantType, Plant plant, int amount) {
-        plantWorld.addPlant(new PlantPopulation(plantType, plant, amount));
+    public void addPlant(PlantType plantType, Plant plant) {
+        plantWorld.addPlant(new PlantPopulation(plantType, plant));
+    }
+
+    public void addPlants(PlantType plantType, List<Plant> plants) {
+        plantWorld.addPlant(new PlantPopulation(plantType, plants));
     }
 
     public AnimalWorld getAnimalWorld() {
@@ -48,9 +46,5 @@ public class Location {
 
     public PlantWorld getPlantWorld() {
         return plantWorld;
-    }
-
-    public String show() {
-        return "[ ]";
     }
 }

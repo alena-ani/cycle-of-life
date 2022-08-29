@@ -2,6 +2,8 @@ package com.javarush.anishchenko.moduletwo.model.animal;
 
 public abstract class Animal implements AnimalAction{
 
+    public static final double SATURATION_PERCENT = 0.25;
+
     protected boolean bitten = false;
 
     protected double saturation = 0.0d;
@@ -16,9 +18,13 @@ public abstract class Animal implements AnimalAction{
         return saturation < maxSaturation;
     }
 
+    public boolean hasNoStrength() {
+        return saturation < maxSaturation * SATURATION_PERCENT;
+    }
+
     @Override
     public void eat(Animal animalToEat) {
-        System.out.println(this.getClass().getSimpleName() +  " eating " + animalToEat.getWeight() + " of " + animalToEat.getClass().getSimpleName());
+        // System.out.println(this.getClass().getSimpleName() +  " eating " + animalToEat.getWeight() + " of " + animalToEat.getClass().getSimpleName());
         saturation += animalToEat.getWeight();
         if (saturation > maxSaturation) {
             saturation = maxSaturation;

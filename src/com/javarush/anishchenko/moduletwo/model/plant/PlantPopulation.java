@@ -1,26 +1,35 @@
 package com.javarush.anishchenko.moduletwo.model.plant;
 
+import com.javarush.anishchenko.moduletwo.model.animal.Animal;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlantPopulation {
 
     private final PlantType plantType;
-    private final Plant plant;
-    private final int amount;
+    private final List<Plant> plants = new ArrayList<>();
 
-    public PlantPopulation(PlantType plantType, Plant plant, int amount) {
+    public PlantPopulation(PlantType plantType, Plant plant) {
         this.plantType = plantType;
-        this.plant = plant;
-        this.amount = amount;
+        this.plants.add(plant);
+    }
+
+    public PlantPopulation(PlantType plantType, List<Plant> plants) {
+        this.plantType = plantType;
+        this.plants.addAll(plants);
     }
 
     public PlantType getPlantType() {
         return plantType;
     }
 
-    public Plant getPlant() {
-        return plant;
+    public void addPlant(Plant plant) {
+        plants.add(plant);
     }
 
-    public int getAmount() {
-        return amount;
+    public void addPlants(List<Plant> plantsList) {
+        plants.addAll(plantsList);
     }
 }

@@ -4,12 +4,12 @@ import com.javarush.anishchenko.moduletwo.model.Iceland;
 
 public class ObserverManager {
 
-    private final AnimalAttributeProvider animalAttributeProvider;
+    private final AttributeProvider attributeProvider;
 
     private final Iceland iceland;
 
-    public ObserverManager(AnimalAttributeProvider animalAttributeProvider, Iceland iceland) {
-        this.animalAttributeProvider = animalAttributeProvider;
+    public ObserverManager(AttributeProvider attributeProvider, Iceland iceland) {
+        this.attributeProvider = attributeProvider;
         this.iceland = iceland;
     }
 }

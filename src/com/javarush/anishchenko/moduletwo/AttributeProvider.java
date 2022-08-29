@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class AnimalAttributeProvider {
+public class AttributeProvider {
+
+    public static final int MAX_PLANTS_AMOUNT_PER_CELL = 200;
 
     private static final String ATTRIBUTES_CONFIG = "/Users/alena/IdeaProjects/cycle-of-life/src/com/javarush/anishchenko/moduletwo/animals.properties";
     private static final String WEIGHT = ".weight";
@@ -21,12 +23,12 @@ public class AnimalAttributeProvider {
 
     private final Map<AnimalType, AnimalAttributes> animalAttributeMap = new HashMap<>();
 
-    public AnimalAttributeProvider() {
+    public AttributeProvider() {
         loadAnimalAttributes();
     }
 
-    public AnimalAttributes getAttributes(AnimalType animal) {
-        return animalAttributeMap.get(animal);
+    public AnimalAttributes getAnimalAttributes(AnimalType animalType) {
+        return animalAttributeMap.get(animalType);
     }
 
     public String getEmoji(AnimalType animalType) {
@@ -38,7 +40,7 @@ public class AnimalAttributeProvider {
         return emoji != null ? emoji : "";
     }
 
-    public int getSpeed (AnimalType animalType) {
+    public int getSpeed(AnimalType animalType) {
         AnimalAttributes animalAttributes = animalAttributeMap.get(animalType);
         if (animalAttributes == null) {
             return 0;

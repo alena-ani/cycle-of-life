@@ -1,5 +1,8 @@
 package com.javarush.anishchenko.moduletwo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Iceland {
 
     private final int length;
@@ -23,8 +26,8 @@ public class Iceland {
         return width;
     }
 
-    public Location getLocation(int row, int column) {
-        return locations[row][column];
+    public Location getLocation(Coordinate coordinate) {
+        return locations[coordinate.getRow()][coordinate.getColumn()];
     }
 
     public Location[][] getLocations() {
@@ -36,7 +39,8 @@ public class Iceland {
         int total = 0;
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < width; j++) {
-                Location location = getLocation(i, j);
+                Coordinate coordinate = new Coordinate(i, j);
+                Location location = getLocation(coordinate);
                 total += location.getAnimalWorld().getTotal();
             }
         }
