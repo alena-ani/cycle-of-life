@@ -1,8 +1,5 @@
 package com.javarush.anishchenko.moduletwo.model.plant;
 
-import com.javarush.anishchenko.moduletwo.model.animal.Animal;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 

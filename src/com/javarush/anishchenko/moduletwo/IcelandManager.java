@@ -81,12 +81,12 @@ public class IcelandManager {
                 AnimalPopulation animalPopulation = animalWorld.getFirstPopulation();
                 if (animalPopulation != null) {
                     String emoji = attributeProvider.getEmoji(animalPopulation.getAnimalType());
-                    System.out.printf("%12s (%d/%d)",
-                            animalPopulation.getAnimalType(),
+                    System.out.printf("%5s (%4d/%4d)",
+                            emoji,
                             animalPopulation.getAnimals().size(),
                             animalWorld.getTotal());
                 } else {
-                    System.out.printf("%12s", "EMPTY");
+                    System.out.printf("%4s", "EMPTY");
                 }
                 System.out.print(" ");
             }
