@@ -17,8 +17,6 @@ public class IcelandManager {
 
     private final AttributeProvider attributeProvider;
 
-    private final EatingProbabilityProvider eatingProbabilityProvider;
-
     private final Iceland iceland;
 
     private final WalkManager walkManager;
@@ -35,14 +33,13 @@ public class IcelandManager {
                           EatingProbabilityProvider eatingProbabilityProvider,
                           Iceland iceland) {
 
+        this.observerManager = new ObserverManager();
         this.attributeProvider = attributeProvider;
-        this.eatingProbabilityProvider = eatingProbabilityProvider;
         this.iceland = iceland;
         this.walkManager = new WalkManager(attributeProvider, iceland);
         this.foodManager = new FoodManager(eatingProbabilityProvider, iceland);
         this.birthManager = new BirthManager(attributeProvider, iceland);
-        this.cleanManager = new CleanManager(iceland);
-        this.observerManager = new ObserverManager(attributeProvider, iceland);
+        this.cleanManager = new CleanManager(observerManager, iceland);
     }
 
     public void fillIceland() {
@@ -59,12 +56,13 @@ public class IcelandManager {
         while (day++ < days) {
             System.out.println("=======================  DAY " + day + " =========================");
             System.out.println();
-            liveOneDay();
+            liveOneDay(day);
             showIceland();
         }
     }
 
-    private void liveOneDay() {
+    private void liveOneDay(int day) {
+        observerManager.startObserve(day);
         // TODO grow plant
         walkManager.move();
         foodManager.haveDinner();

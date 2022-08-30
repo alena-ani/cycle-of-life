@@ -15,5 +15,6 @@ public class Main {
         Iceland iceland = new Iceland(length, width);
         IcelandManager icelandManager = new IcelandManager(attributeProvider, eatingProbabilityProvider, iceland);
         icelandManager.startLife(DAYS_ON_ICELAND);
+
     }
 }

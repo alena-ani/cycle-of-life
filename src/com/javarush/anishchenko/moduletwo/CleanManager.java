@@ -11,9 +11,12 @@ import java.util.Iterator;
 
 public class CleanManager {
 
+    private final ObserverManager observerManager;
+
     private final Iceland iceland;
 
-    public CleanManager(Iceland iceland) {
+    public CleanManager(ObserverManager observerManager, Iceland iceland) {
+        this.observerManager = observerManager;
         this.iceland = iceland;
     }
 
@@ -26,12 +29,15 @@ public class CleanManager {
                 while (animalPopulationIterator.hasNext()) {
                     AnimalPopulation animalPopulation = animalPopulationIterator.next();
                     Iterator<Animal> animalIterator = animalPopulation.getAnimals().iterator();
+                    int animalsCount = animalPopulation.getAnimalCount();
                     while (animalIterator.hasNext()) {
                         Animal animal = animalIterator.next();
                         if (animal.isBitten() || animal.hasNoStrength()) {
                             animalIterator.remove();
                         }
                     }
+                    int diedAnimals = animalsCount - animalPopulation.getAnimalCount();
+                    observerManager.addDiedAnimalsStatistic(location.getCoordinate(), animalPopulation.getAnimalType(), diedAnimals);
                     if (animalPopulation.getAnimals().isEmpty()) {
                         animalPopulationIterator.remove();
                     }

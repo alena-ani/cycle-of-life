@@ -34,6 +34,7 @@ public class Iceland {
         return locations;
     }
 
+
     // TODO move to class with statistics
     public int getTotalAnimals() {
         int total = 0;

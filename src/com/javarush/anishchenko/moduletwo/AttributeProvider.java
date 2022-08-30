@@ -4,8 +4,8 @@ import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 
 import java.io.FileInputStream;
-
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -77,7 +77,7 @@ public class AttributeProvider {
             Properties properties = new Properties();
             properties.load(fis);
             for (AnimalType animalType : AnimalType.values()) {
-                // System.out.println("Loading attributes for " + animalType);
+                //System.out.println("Loading attributes for " + animalType);
                 AnimalAttributes animalAttributes = new AnimalAttributes();
 
                 String animalKey = animalType.toString().toLowerCase();

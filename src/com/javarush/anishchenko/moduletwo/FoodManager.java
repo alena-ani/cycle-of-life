@@ -17,6 +17,7 @@ public class FoodManager {
     private static final int PROBABILITY_MIN_PERCENT_VALUE = 0;
 
     private final EatingProbabilityProvider eatingProbabilityProvider;
+    //private  final AttributeProvider attributeProvider;
 
     private final Iceland iceland;
 
@@ -25,6 +26,7 @@ public class FoodManager {
 
         this.eatingProbabilityProvider = eatingProbabilityProvider;
         this.iceland = iceland;
+
     }
 
     public void haveDinner() {
@@ -92,6 +94,7 @@ public class FoodManager {
                     if (huntedAnimalPopulation.getAnimals().isEmpty()) {
                         huntedAnimalWorld.getAnimalPopulations().remove(huntedAnimalPopulation);
                     }
+
                 }
             }
         }
