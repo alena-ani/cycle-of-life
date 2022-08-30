@@ -1,6 +1,6 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.manager;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
 import com.javarush.anishchenko.moduletwo.model.Coordinate;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
@@ -11,12 +11,12 @@ import java.util.Iterator;
 
 public class CleanManager {
 
-    private final ObserverManager observerManager;
+    private final StatisticManager statisticManager;
 
     private final Iceland iceland;
 
-    public CleanManager(ObserverManager observerManager, Iceland iceland) {
-        this.observerManager = observerManager;
+    public CleanManager(StatisticManager statisticManager, Iceland iceland) {
+        this.statisticManager = statisticManager;
         this.iceland = iceland;
     }
 
@@ -37,7 +37,7 @@ public class CleanManager {
                         }
                     }
                     int diedAnimals = animalsCount - animalPopulation.getAnimalCount();
-                    observerManager.addDiedAnimalsStatistic(location.getCoordinate(), animalPopulation.getAnimalType(), diedAnimals);
+                    statisticManager.addDiedAnimalsStatistic(location.getCoordinate(), animalPopulation.getAnimalType(), diedAnimals);
                     if (animalPopulation.getAnimals().isEmpty()) {
                         animalPopulationIterator.remove();
                     }

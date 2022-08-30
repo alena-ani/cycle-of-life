@@ -1,13 +1,15 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.manager;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
-import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.factory.AnimalFactory;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalAttributes;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
 import com.javarush.anishchenko.moduletwo.model.Coordinate;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.provider.AttributeProvider;
 
 import java.util.List;
 
@@ -15,11 +17,12 @@ import java.util.List;
 public class BirthManager {
 
     private final AttributeProvider attributeProvider;
-
+    private final StatisticManager statisticManager;
     private final Iceland iceland;
 
-    public BirthManager(AttributeProvider attributeProvider, Iceland iceland) {
+    public BirthManager(AttributeProvider attributeProvider, Iceland iceland, StatisticManager statisticManager) {
         this.attributeProvider = attributeProvider;
+        this.statisticManager = statisticManager;
         this.iceland = iceland;
     }
 
@@ -41,6 +44,7 @@ public class BirthManager {
                         AnimalAttributes animalAttributes = attributeProvider.getAnimalAttributes(animalType);
                         List<Animal> bornAnimals = AnimalFactory.createAnimals(animalType, bornAnimalsCount, animalAttributes);
                         animalPopulation.addAnimals(bornAnimals);
+                        statisticManager.addBornAnimalStatistic(location.getCoordinate(), animalPopulation.getAnimalType(), bornAnimalsCount);
                     }
                 }
             }

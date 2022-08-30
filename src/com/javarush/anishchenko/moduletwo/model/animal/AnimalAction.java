@@ -5,8 +5,4 @@ public interface AnimalAction {
     void eat(Animal animalToEat);
 
     void moves();
-
-    void breeds();
-
-    void dies();
 }

@@ -1,6 +1,6 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.factory;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalAttributes;
 import com.javarush.anishchenko.moduletwo.model.animal.*;
 
 import java.util.ArrayList;

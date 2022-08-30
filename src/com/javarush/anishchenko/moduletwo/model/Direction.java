@@ -1,4 +1,4 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.model;
 
 public enum Direction {
     NORTH,

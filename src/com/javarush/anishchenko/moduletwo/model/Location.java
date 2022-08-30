@@ -2,9 +2,11 @@ package com.javarush.anishchenko.moduletwo.model;
 
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;
 import com.javarush.anishchenko.moduletwo.model.plant.PlantPopulation;
 import com.javarush.anishchenko.moduletwo.model.plant.PlantType;
+import com.javarush.anishchenko.moduletwo.model.plant.PlantWorld;
 
 import java.util.List;
 

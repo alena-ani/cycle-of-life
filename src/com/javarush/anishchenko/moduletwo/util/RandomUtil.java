@@ -1,6 +1,7 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.util;
 
 import com.javarush.anishchenko.moduletwo.model.Coordinate;
+import com.javarush.anishchenko.moduletwo.model.Direction;
 
 import java.util.concurrent.ThreadLocalRandom;
 

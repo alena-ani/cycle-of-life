@@ -1,29 +1,34 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.manager;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalPairKey;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
 import com.javarush.anishchenko.moduletwo.model.Coordinate;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
+import com.javarush.anishchenko.moduletwo.util.RandomUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class FoodManager {
+public class FeedManager {
 
     private static final int PROBABILITY_MAX_PERCENT_VALUE = 100;
     private static final int PROBABILITY_MIN_PERCENT_VALUE = 0;
 
     private final EatingProbabilityProvider eatingProbabilityProvider;
-    //private  final AttributeProvider attributeProvider;
-
+    private final StatisticManager statisticManager;
     private final Iceland iceland;
 
-    public FoodManager(EatingProbabilityProvider eatingProbabilityProvider,
-                       Iceland iceland) {
 
+    public FeedManager(EatingProbabilityProvider eatingProbabilityProvider,
+                       Iceland iceland, StatisticManager statisticManager) {
+        this.statisticManager = statisticManager;
         this.eatingProbabilityProvider = eatingProbabilityProvider;
         this.iceland = iceland;
 
@@ -37,6 +42,7 @@ public class FoodManager {
                 Location location = iceland.getLocation(locationCoordinate);
                 AnimalWorld huntedAnimalWorld = new AnimalWorld(location.getAnimalWorld());
                 int animalsTotal = huntedAnimalWorld.getTotal();
+                Map<AnimalType, Integer> eatingAnimalsCountMap = new HashMap<>();
                 while (animalsTotal > 0) {
                     Set<AnimalPopulation> animalPopulationSet = huntedAnimalWorld.getAnimalPopulations();
                     AnimalPopulation[] animalPopulations = new AnimalPopulation[animalPopulationSet.size()];
@@ -89,12 +95,24 @@ public class FoodManager {
                     index = RandomUtil.getNumber(0, animalPopulationToEat.getAnimals().size());
                     Animal animalToEat = animalPopulationToEat.getAnimals().get(index);
                     animal.eat(animalToEat);
+
+                    // collect statistics
+                    Integer count = eatingAnimalsCountMap.get(animalType);
+                    if (count == null) {
+                        count = 0;
+                    }
+                    eatingAnimalsCountMap.put(animalType, ++count);
+
                     huntedAnimalPopulation.remove(animal);
                     animalsTotal--;
                     if (huntedAnimalPopulation.getAnimals().isEmpty()) {
                         huntedAnimalWorld.getAnimalPopulations().remove(huntedAnimalPopulation);
                     }
 
+                }
+
+                for (Map.Entry<AnimalType, Integer> entry : eatingAnimalsCountMap.entrySet()) {
+                    statisticManager.addEatenAnimalsStatistic(locationCoordinate, entry.getKey(), entry.getValue());
                 }
             }
         }

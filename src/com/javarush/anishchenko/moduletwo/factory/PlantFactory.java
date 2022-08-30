@@ -1,4 +1,4 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.factory;
 
 import com.javarush.anishchenko.moduletwo.model.plant.Herb;
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;

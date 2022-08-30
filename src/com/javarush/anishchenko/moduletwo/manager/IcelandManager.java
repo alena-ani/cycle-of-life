@@ -1,7 +1,9 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.manager;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
-import com.javarush.anishchenko.moduletwo.model.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.factory.AnimalFactory;
+import com.javarush.anishchenko.moduletwo.factory.PlantFactory;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalAttributes;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
 import com.javarush.anishchenko.moduletwo.model.Coordinate;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
@@ -10,6 +12,9 @@ import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;
 import com.javarush.anishchenko.moduletwo.model.plant.PlantType;
+import com.javarush.anishchenko.moduletwo.provider.AttributeProvider;
+import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
+import com.javarush.anishchenko.moduletwo.util.RandomUtil;
 
 import java.util.List;
 
@@ -21,25 +26,25 @@ public class IcelandManager {
 
     private final WalkManager walkManager;
 
-    private final FoodManager foodManager;
+    private final FeedManager feedManager;
 
     private final BirthManager birthManager;
 
     private final CleanManager cleanManager;
 
-    private final ObserverManager observerManager;
+    private final StatisticManager statisticManager;
 
     public IcelandManager(AttributeProvider attributeProvider,
                           EatingProbabilityProvider eatingProbabilityProvider,
                           Iceland iceland) {
 
-        this.observerManager = new ObserverManager();
+        this.statisticManager = new StatisticManager();
         this.attributeProvider = attributeProvider;
         this.iceland = iceland;
         this.walkManager = new WalkManager(attributeProvider, iceland);
-        this.foodManager = new FoodManager(eatingProbabilityProvider, iceland);
-        this.birthManager = new BirthManager(attributeProvider, iceland);
-        this.cleanManager = new CleanManager(observerManager, iceland);
+        this.feedManager = new FeedManager(eatingProbabilityProvider, iceland, statisticManager);
+        this.birthManager = new BirthManager(attributeProvider, iceland, statisticManager);
+        this.cleanManager = new CleanManager(statisticManager, iceland);
     }
 
     public void fillIceland() {
@@ -62,12 +67,14 @@ public class IcelandManager {
     }
 
     private void liveOneDay(int day) {
-        observerManager.startObserve(day);
+        statisticManager.startObserve(day);
         // TODO grow plant
         walkManager.move();
-        foodManager.haveDinner();
+        feedManager.haveDinner();
         cleanManager.clean();
         birthManager.birth();
+        statisticManager.showStatistics();
+
     }
 
     public void showIceland() {

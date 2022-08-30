@@ -1,4 +1,4 @@
-package com.javarush.anishchenko.moduletwo.model;
+package com.javarush.anishchenko.moduletwo.model.statistic;
 
 public class AnimalStatistic {
 

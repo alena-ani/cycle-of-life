@@ -1,6 +1,6 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.provider;
 
-import com.javarush.anishchenko.moduletwo.model.AnimalAttributes;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalAttributes;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 
 import java.io.FileInputStream;

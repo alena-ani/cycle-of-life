@@ -1,8 +1,4 @@
-package com.javarush.anishchenko.moduletwo.model;
-
-import com.javarush.anishchenko.moduletwo.model.animal.Animal;
-import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
-import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
+package com.javarush.anishchenko.moduletwo.model.animal;
 
 import java.util.ArrayList;
 import java.util.HashSet;

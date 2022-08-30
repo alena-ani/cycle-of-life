@@ -1,6 +1,9 @@
 package com.javarush.anishchenko.moduletwo;
 
+import com.javarush.anishchenko.moduletwo.manager.IcelandManager;
 import com.javarush.anishchenko.moduletwo.model.Iceland;
+import com.javarush.anishchenko.moduletwo.provider.AttributeProvider;
+import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
 
 public class Main {
 

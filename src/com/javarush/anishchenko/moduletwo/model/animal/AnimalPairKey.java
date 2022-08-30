@@ -1,6 +1,4 @@
-package com.javarush.anishchenko.moduletwo;
-
-import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+package com.javarush.anishchenko.moduletwo.model.animal;
 
 import java.util.Objects;
 

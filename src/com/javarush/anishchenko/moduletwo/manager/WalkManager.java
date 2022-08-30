@@ -1,9 +1,12 @@
-package com.javarush.anishchenko.moduletwo;
+package com.javarush.anishchenko.moduletwo.manager;
 
 import com.javarush.anishchenko.moduletwo.model.*;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.model.animal.AnimalWorld;
+import com.javarush.anishchenko.moduletwo.provider.AttributeProvider;
+import com.javarush.anishchenko.moduletwo.util.RandomUtil;
 
 import java.util.Iterator;
 

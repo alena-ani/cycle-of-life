@@ -1,4 +1,4 @@
-package com.javarush.anishchenko.moduletwo.model;
+package com.javarush.anishchenko.moduletwo.model.plant;
 
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;
 import com.javarush.anishchenko.moduletwo.model.plant.PlantPopulation;

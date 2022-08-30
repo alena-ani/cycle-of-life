@@ -37,34 +37,12 @@ public abstract class Animal implements AnimalAction{
         System.out.println("Moving...");
     }
 
-    @Override
-    public void breeds() {
-        System.out.println("Breeds...");
-    }
-
-    @Override
-    public void dies() {
-        System.out.println("Dies...");
-    }
-
     public boolean isBitten() {
         return bitten;
     }
 
     public void setBitten(boolean bitten) {
         this.bitten = bitten;
-    }
-
-    public double getSaturation() {
-        return saturation;
-    }
-
-    public void setSaturation(double saturation) {
-        this.saturation = saturation;
-    }
-
-    public double getMaxSaturation() {
-        return maxSaturation;
     }
 
     public void setMaxSaturation(double maxSaturation) {
