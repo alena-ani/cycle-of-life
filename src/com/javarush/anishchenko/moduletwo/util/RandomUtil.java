@@ -19,7 +19,6 @@ public final class RandomUtil {
     }
 
     public static int getNumber(int min, int max) {
-        // return (int) ((Math.random() * (max - min)) + min);
         if (min == max) {
             return max;
         }
