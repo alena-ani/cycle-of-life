@@ -14,7 +14,7 @@ public class AttributeProvider {
 
     public static final int MAX_PLANTS_AMOUNT_PER_CELL = 200;
 
-    private static final String ATTRIBUTES_CONFIG = "/Users/alena/IdeaProjects/cycle-of-life/src/com/javarush/anishchenko/moduletwo/animals.properties";
+    private static final String ATTRIBUTES_CONFIG = "/Users/alena/IdeaProjects/cycle-of-life/src/com/javarush/anishchenko/moduletwo/parameters/animals.properties";
     private static final String WEIGHT = ".weight";
     private static final String MAX_COUNT_PER_CELL = ".max.count.per.cell";
     private static final String SPEED = ".speed";

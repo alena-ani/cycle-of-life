@@ -8,10 +8,13 @@ import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
+import com.javarush.anishchenko.moduletwo.model.plant.Plant;
+import com.javarush.anishchenko.moduletwo.model.plant.PlantPopulation;
 import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
 import com.javarush.anishchenko.moduletwo.util.RandomUtil;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,6 +86,7 @@ public class FeedManager {
 
                     AnimalPopulation animalPopulationToEat = findAnimalPopulationToEat(animalType, animalPopulations);
                     if (animalPopulationToEat == null) {
+                        tryToEatPlants(location, animalType, animal);
                         // System.out.println("Animal " + animalType + ": " + animal + " won't hunt. No food found");
                         huntedAnimalPopulation.remove(animal);
                         animalsTotal--;
@@ -117,6 +121,41 @@ public class FeedManager {
             }
         }
         System.out.println("Hunt completed...");
+    }
+
+    public void haveStarvation() {
+        for (int i = 0; i < iceland.getLength(); i++) {
+            for (int j = 0; j < iceland.getWidth(); j++) {
+                Coordinate locationCoordinate = new Coordinate(i, j);
+                Location location = iceland.getLocation(locationCoordinate);
+                AnimalWorld animalWorld = location.getAnimalWorld();
+                for (AnimalPopulation animalPopulation: animalWorld.getAnimalPopulations()) {
+                    for (Animal animal: animalPopulation.getAnimals()) {
+                        animal.starvation();
+                    }
+                }
+            }
+        }
+    }
+
+    private void tryToEatPlants(Location location, AnimalType animalType, Animal animal) {
+        if (eatingProbabilityProvider.getPlantEatProbability(animalType) == null) {
+            return;
+        }
+
+        Iterator<PlantPopulation> plantPopulationIterator = location.getPlantWorld().getPlantPopulations().iterator();
+        while (plantPopulationIterator.hasNext()) {
+            PlantPopulation plantPopulation = plantPopulationIterator.next();
+            Iterator<Plant> plantIterator = plantPopulation.getPlants().iterator();
+            while (plantIterator.hasNext() && animal.wantEat()) {
+                Plant plant = plantIterator.next();
+                animal.eat(plant);
+                plantIterator.remove();
+            }
+            if (plantPopulation.getPlants().isEmpty()) {
+                plantPopulationIterator.remove();
+            }
+        }
     }
 
     private AnimalPopulation findAnimalPopulationToEat(AnimalType animalType, AnimalPopulation[] animalPopulations) {

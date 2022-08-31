@@ -29,4 +29,8 @@ public class PlantPopulation {
     public void addPlants(List<Plant> plantsList) {
         plants.addAll(plantsList);
     }
+
+    public List<Plant> getPlants() {
+        return plants;
+    }
 }

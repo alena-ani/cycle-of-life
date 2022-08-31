@@ -1,9 +1,10 @@
 package com.javarush.anishchenko.moduletwo.model.plant;
 
-public abstract class Plant implements PlantAction {
+public abstract class Plant {
 
-    @Override
-    public void grow() {
-        System.out.println("Plant is growing...");
+    protected int weight = 1;
+
+    public int getWeight() {
+        return weight;
     }
 }

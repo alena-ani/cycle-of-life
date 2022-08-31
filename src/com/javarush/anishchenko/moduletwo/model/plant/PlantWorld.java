@@ -1,8 +1,5 @@
 package com.javarush.anishchenko.moduletwo.model.plant;
 
-import com.javarush.anishchenko.moduletwo.model.plant.Plant;
-import com.javarush.anishchenko.moduletwo.model.plant.PlantPopulation;
-import com.javarush.anishchenko.moduletwo.model.plant.PlantType;
 
 import java.util.HashSet;
 import java.util.List;

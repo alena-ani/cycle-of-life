@@ -1,8 +1,12 @@
 package com.javarush.anishchenko.moduletwo.model.animal;
 
+import com.javarush.anishchenko.moduletwo.model.plant.Plant;
+
 public abstract class Animal implements AnimalAction{
 
     public static final double SATURATION_PERCENT = 0.25;
+
+    public static final double HUNGRY_PERCENT = 0.10;
 
     protected boolean bitten = false;
 
@@ -22,6 +26,15 @@ public abstract class Animal implements AnimalAction{
         return saturation < maxSaturation * SATURATION_PERCENT;
     }
 
+    public void starvation() {
+        double newSaturation = this.saturation - saturation * HUNGRY_PERCENT;
+        if (newSaturation > 0) {
+            this.saturation = newSaturation;
+        } else {
+            this.saturation = 0;
+        }
+    }
+
     @Override
     public void eat(Animal animalToEat) {
         // System.out.println(this.getClass().getSimpleName() +  " eating " + animalToEat.getWeight() + " of " + animalToEat.getClass().getSimpleName());
@@ -33,8 +46,11 @@ public abstract class Animal implements AnimalAction{
     }
 
     @Override
-    public void moves() {
-        System.out.println("Moving...");
+    public void eat(Plant plant) {
+        saturation += plant.getWeight();
+        if (saturation > maxSaturation) {
+            saturation = maxSaturation;
+        }
     }
 
     public boolean isBitten() {

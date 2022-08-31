@@ -36,7 +36,7 @@ public class EatingProbabilityProvider {
 
     private void loadAnimalEatingProbabilities() {
         try (Scanner sc = new Scanner(
-                new BufferedReader((new FileReader("/Users/alena/IdeaProjects/cycle-of-life/src/com/javarush/anishchenko/moduletwo/hitprobability"))))) {
+                new BufferedReader((new FileReader("/Users/alena/IdeaProjects/cycle-of-life/src/com/javarush/anishchenko/moduletwo/parameters/hitprobability"))))) {
             int size = AnimalType.ANIMALS.length;
             while (sc.hasNextInt()) {
                 for (int i = 0; i < size; i++) {

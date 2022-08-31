@@ -6,6 +6,7 @@ import com.javarush.anishchenko.moduletwo.model.Iceland;
 import com.javarush.anishchenko.moduletwo.model.Location;
 import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
+import com.javarush.anishchenko.moduletwo.model.plant.PlantWorld;
 
 import java.util.Iterator;
 

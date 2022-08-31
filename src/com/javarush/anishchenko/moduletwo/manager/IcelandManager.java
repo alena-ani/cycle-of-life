@@ -11,6 +11,7 @@ import com.javarush.anishchenko.moduletwo.model.animal.Animal;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalPopulation;
 import com.javarush.anishchenko.moduletwo.model.animal.AnimalType;
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;
+import com.javarush.anishchenko.moduletwo.model.plant.PlantPopulation;
 import com.javarush.anishchenko.moduletwo.model.plant.PlantType;
 import com.javarush.anishchenko.moduletwo.provider.AttributeProvider;
 import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
@@ -68,11 +69,12 @@ public class IcelandManager {
 
     private void liveOneDay(int day) {
         statisticManager.startObserve(day);
-        // TODO grow plant
+        growPlants();
         walkManager.move();
         feedManager.haveDinner();
         cleanManager.clean();
         birthManager.birth();
+        feedManager.haveStarvation();
         statisticManager.showStatistics();
 
     }
@@ -125,6 +127,25 @@ public class IcelandManager {
                     }
                     List<Animal> animals = AnimalFactory.createAnimals(animalType, animalsCountOnLocation, animalAttributes);
                     location.addAnimals(animalType, animals);
+                }
+            }
+        }
+    }
+
+    private void growPlants() {
+        for (int i = 0; i < iceland.getLength(); i++) {
+            for (int j = 0; j < iceland.getWidth(); j++) {
+                Coordinate coordinate = new Coordinate(i, j);
+                Location location = iceland.getLocation(coordinate);
+                for (PlantPopulation plantPopulation : location.getPlantWorld().getPlantPopulations()) {
+                    int plantsAmount = RandomUtil.getNumber(0, AttributeProvider.MAX_PLANTS_AMOUNT_PER_CELL);
+                    int existedPlantsAmount = plantPopulation.getPlants().size();
+                    int newPlantAmount = plantsAmount + existedPlantsAmount;
+                    if (newPlantAmount > AttributeProvider.MAX_PLANTS_AMOUNT_PER_CELL) {
+                        plantsAmount = AttributeProvider.MAX_PLANTS_AMOUNT_PER_CELL - existedPlantsAmount;
+                    }
+                    List<Plant> plants = PlantFactory.createPlants(PlantType.HERB, plantsAmount);
+                    location.getPlantWorld().addPlants(PlantType.HERB, plants);
                 }
             }
         }

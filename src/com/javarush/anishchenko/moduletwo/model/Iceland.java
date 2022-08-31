@@ -1,8 +1,5 @@
 package com.javarush.anishchenko.moduletwo.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Iceland {
 
     private final int length;
@@ -34,8 +31,6 @@ public class Iceland {
         return locations;
     }
 
-
-    // TODO move to class with statistics
     public int getTotalAnimals() {
         int total = 0;
         for (int i = 0; i < length; i++) {
