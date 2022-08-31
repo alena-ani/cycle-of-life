@@ -6,45 +6,46 @@
 
 Краткое описание классов:
 
-В пакете provider находятся классы AttributeProvider,
-EatingProbabilityProvider поставляющие характеристики
-животных.
-
-В пакете parameters находятся файлы характеристики
-животных и вероятность поедания животных или растении.
-
-В пакете util находится утильный класс RandomUtil
-содержащий методы getCoordinate, getDirection,
-getNumber генерирующие произвольно  направление 
-движения, координаты локации и произвольный номер.
-
-В пакете model находятся покеты:
-animal находятся все животные, класс родитель Animal
-содержащий общие поля и методы всех существ,
-классы AnimalAttributes,
-AnimalPopulation, AnimalType, AnimalWorld отвечающие за
-тип животных, популяции животных и животный мир;
-
-plant находятся классы отвечающие за растения,
-популяцию растений и мир растений;
-
-statistic находятся классы модели для статистической 
-информации.
-
-В покете factory находятся классы, создающие животных
-и растения
-
-В покете manager находятся классы:
-IcelandManager отвечающие за основную логику управления
+В покете com.javarush.anishchenko.moduletwo.manager находятся классы:
+com.javarush.anishchenko.moduletwo.manager.IcelandManager отвечающие за основную логику управления
 действиями острова, содержит методы заполнения
 острова растениями и животными, жизнь острова,
 демонстрации в консоль.
-WalkManager - передвижение животных по локациям,
-FeedManager - поедание животных и растений,
-BirthManager - рождение новых животных,
-CleanManager - удаление истощенных животных и
+com.javarush.anishchenko.moduletwo.manager.WalkManager - передвижение животных по локациям,
+com.javarush.anishchenko.moduletwo.manager.FeedManager - поедание животных и растений,
+com.javarush.anishchenko.moduletwo.manager.BirthManager - рождение новых животных,
+com.javarush.anishchenko.moduletwo.manager.CleanManager - удаление истощенных животных и
 умерших животных,
-StatisticManager - сбор статистики за каждый день.
+com.javarush.anishchenko.moduletwo.manager.StatisticManager - 
+сбор статистики за каждый день.
+
+В пакете com.javarush.anishchenko.moduletwo.provider
+находятся классы поставляющие характеристики
+животных.
+
+В пакете com.javarush.anishchenko.moduletwo.parameters находятся файлы характеристики
+животных и вероятность поедания животных или растении.
+
+В пакете com.javarush.anishchenko.moduletwo.util
+находится утильный класс содержащий методы генерирующие произвольно  направление 
+движения, координаты локации и произвольный номер.
+
+В пакете com.javarush.anishchenko.moduletwo.model находятся покеты:
+com.javarush.anishchenko.moduletwo.model.animal находятся все животные, класс родитель Animal
+содержащий общие поля и методы всех существ,
+классы отвечающие за
+тип животных, популяции животных и животный мир;
+
+com.javarush.anishchenko.moduletwo.model.plant находятся классы отвечающие за растения,
+популяцию растений и мир растений.
+
+com.javarush.anishchenko.moduletwo.model.statistic находятся классы модели для статистической 
+информации.
+
+В покете com.javarush.anishchenko.moduletwo.factory находятся классы, создающие животных
+и растения
+
+Запуск проекта build/cycle-of-life.jar
 
 Пример работы программы
 Остров размерами 100*20.
