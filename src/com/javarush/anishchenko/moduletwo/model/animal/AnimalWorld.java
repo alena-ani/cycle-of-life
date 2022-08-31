@@ -1,6 +1,5 @@
 package com.javarush.anishchenko.moduletwo.model.animal;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,15 +18,6 @@ public class AnimalWorld {
             animalPopulationsCopy.add(animalOperationCopy);
         }
         this.animalPopulations = new HashSet<>(animalPopulationsCopy);
-    }
-
-    public boolean addAnimal(AnimalType animalType, Animal animal) {
-        AnimalPopulation animalPopulation = findGroupOfAnimals(animalType);
-        if (animalPopulation != null) {
-            animalPopulation.addAnimal(animal);
-            return true;
-        }
-        return animalPopulations.add(new AnimalPopulation(animalType, animal));
     }
 
     public boolean addAnimals(AnimalType animalType, List<Animal> animalsList) {
@@ -61,14 +51,6 @@ public class AnimalWorld {
             total += animalPopulation.getAnimals().size();
         }
         return total;
-    }
-
-    public List<Animal> getAllAnimals() {
-        List<Animal> animals = new ArrayList<>();
-        for (AnimalPopulation animalPopulation : animalPopulations) {
-            animals.addAll(animalPopulation.getAnimals());
-        }
-        return animals;
     }
 
     private AnimalPopulation findGroupOfAnimals(AnimalType animalType) {

@@ -7,8 +7,8 @@ import com.javarush.anishchenko.moduletwo.provider.EatingProbabilityProvider;
 
 public class Main {
 
-    private static final int width = 10;
-    private static final int length = 10;
+    private static final int width = 100;
+    private static final int length = 20;
 
     private static final int DAYS_ON_ICELAND = 3;
 

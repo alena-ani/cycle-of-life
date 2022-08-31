@@ -75,7 +75,6 @@ public class FeedManager {
                     Animal animal = animals.get(index);
                     AnimalPopulation huntedAnimalPopulation = huntedAnimalWorld.getAnimalPopulation(animalType);
                     if (animal.isBitten() || !animal.wantEat()) {
-                        // System.out.println("Animal " + animalType + ": " + animal + " won't hunt");
                         huntedAnimalPopulation.remove(animal);
                         animalsTotal--;
                         if (huntedAnimalPopulation.getAnimals().isEmpty()) {
@@ -87,7 +86,6 @@ public class FeedManager {
                     AnimalPopulation animalPopulationToEat = findAnimalPopulationToEat(animalType, animalPopulations);
                     if (animalPopulationToEat == null) {
                         tryToEatPlants(location, animalType, animal);
-                        // System.out.println("Animal " + animalType + ": " + animal + " won't hunt. No food found");
                         huntedAnimalPopulation.remove(animal);
                         animalsTotal--;
                         if (huntedAnimalPopulation.getAnimals().isEmpty()) {
@@ -100,7 +98,6 @@ public class FeedManager {
                     Animal animalToEat = animalPopulationToEat.getAnimals().get(index);
                     animal.eat(animalToEat);
 
-                    // collect statistics
                     Integer count = eatingAnimalsCountMap.get(animalType);
                     if (count == null) {
                         count = 0;
@@ -167,9 +164,6 @@ public class FeedManager {
                 continue;
             }
             int probabilityRandomValue = RandomUtil.getNumber(PROBABILITY_MIN_PERCENT_VALUE, PROBABILITY_MAX_PERCENT_VALUE);
-            // System.out.println("Animal " + animalType + " want to eat "
-            //        + animalPopulationToEat + " with probability: "
-            //        + probabilityRandomValue + ", eatingProbability=" + eatingProbability);
 
             if (probabilityRandomValue > eatingProbability) {
                 break;

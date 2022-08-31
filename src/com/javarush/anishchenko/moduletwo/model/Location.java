@@ -23,10 +23,6 @@ public class Location {
         return coordinate;
     }
 
-    public void addAnimal(AnimalType animalType, Animal animal) {
-        animalWorld.addAnimal(animalType, animal);
-    }
-
     public void addAnimals(AnimalType animalType, List<Animal> animals) {
         animalWorld.addAnimals(animalType, animals);
     }

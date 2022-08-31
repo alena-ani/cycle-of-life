@@ -4,21 +4,13 @@ import java.util.Objects;
 
 public class AnimalPairKey {
 
-   private final AnimalType herbivore;
+    private final AnimalType herbivore;
 
-   private final AnimalType carnivore;
+    private final AnimalType carnivore;
 
     public AnimalPairKey(AnimalType carnivore, AnimalType herbivore) {
         this.herbivore = herbivore;
         this.carnivore = carnivore;
-    }
-
-    public AnimalType getCarnivore() {
-        return carnivore;
-    }
-
-    public AnimalType getHerbivore() {
-        return herbivore;
     }
 
     @Override

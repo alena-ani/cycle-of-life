@@ -31,7 +31,7 @@ public class EatingProbabilityProvider {
     }
 
     public EatingProbabilityProvider() {
-      loadAnimalEatingProbabilities();
+        loadAnimalEatingProbabilities();
     }
 
     private void loadAnimalEatingProbabilities() {
@@ -67,16 +67,6 @@ public class EatingProbabilityProvider {
             return 0;
         }
         return plantEatingProbability;
-    }
-
-    public Integer getAnimalEatProbability(AnimalType firstAnimal, AnimalType secondAnimal) {
-        AnimalPairKey animalPairKey = new AnimalPairKey(firstAnimal, secondAnimal);
-        Integer probabilityValue = animalEatingProbabilities.get(animalPairKey);
-        if (probabilityValue == null) {
-            animalPairKey = new AnimalPairKey(secondAnimal, firstAnimal);
-            probabilityValue = animalEatingProbabilities.get(animalPairKey);
-        }
-        return probabilityValue;
     }
 
 }

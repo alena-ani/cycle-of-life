@@ -27,10 +27,6 @@ public class Iceland {
         return locations[coordinate.getRow()][coordinate.getColumn()];
     }
 
-    public Location[][] getLocations() {
-        return locations;
-    }
-
     public int getTotalAnimals() {
         int total = 0;
         for (int i = 0; i < length; i++) {

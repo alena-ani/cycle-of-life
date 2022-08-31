@@ -84,7 +84,4 @@ public class StatisticManager {
         statistics.put(currentDay, statisticData);
     }
 
-    public int getCurrentDay() {
-        return currentDay;
-    }
 }

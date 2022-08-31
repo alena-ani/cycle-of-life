@@ -2,7 +2,7 @@ package com.javarush.anishchenko.moduletwo.model.animal;
 
 import com.javarush.anishchenko.moduletwo.model.plant.Plant;
 
-public abstract class Animal implements AnimalAction{
+public abstract class Animal implements AnimalAction {
 
     public static final double SATURATION_PERCENT = 0.25;
 
@@ -37,7 +37,6 @@ public abstract class Animal implements AnimalAction{
 
     @Override
     public void eat(Animal animalToEat) {
-        // System.out.println(this.getClass().getSimpleName() +  " eating " + animalToEat.getWeight() + " of " + animalToEat.getClass().getSimpleName());
         saturation += animalToEat.getWeight();
         if (saturation > maxSaturation) {
             saturation = maxSaturation;

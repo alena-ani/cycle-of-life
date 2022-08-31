@@ -19,10 +19,6 @@ public class PlantWorld {
         return plantPopulations.add(new PlantPopulation(plantType, plantsList));
     }
 
-    public boolean addPlant(PlantPopulation plantPopulation) {
-        return plantPopulations.add(plantPopulation);
-    }
-
     public Set<PlantPopulation> getPlantPopulations() {
         return plantPopulations;
     }
